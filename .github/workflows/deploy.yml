@@ -1,0 +1,69 @@
+name: Deploy
+
+# ⚠️ ILLUSTRATIF (formation). Le déploiement suppose une VM accessible en SSH
+# avec Docker + docker compose. Les secrets ci-dessous sont des PLACEHOLDERS à
+# définir dans Settings → Secrets and variables → Actions du repo GitHub :
+#   VM_HOST   — IP/host de la VM
+#   VM_USER   — utilisateur SSH
+#   VM_SSH_KEY — clé privée SSH (déployée sur la VM)
+# Rien n'est branché à une vraie VM par défaut : le job échoue tant que les
+# secrets ne sont pas fournis — c'est voulu (support pédagogique).
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch: # permet un déclenchement manuel depuis l'UI GitHub
+
+env:
+  REGISTRY: ghcr.io/${{ github.repository_owner }}
+  TAG: ${{ github.sha }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write # pousser les images sur GHCR
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build & push backend
+        uses: docker/build-push-action@v6
+        with:
+          context: ./backend
+          push: true
+          tags: ${{ env.REGISTRY }}/todo-backend:${{ env.TAG }}
+
+      - name: Build & push frontend
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend
+          push: true
+          build-args: VITE_API_URL=${{ vars.VITE_API_URL }}
+          tags: ${{ env.REGISTRY }}/todo-frontend:${{ env.TAG }}
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy on VM via SSH (docker compose)
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          script: |
+            cd /opt/todo-app
+            export REGISTRY=ghcr.io/${{ github.repository_owner }}
+            export TAG=${{ github.sha }}
+            docker compose pull
+            docker compose up -d
+            docker compose ps

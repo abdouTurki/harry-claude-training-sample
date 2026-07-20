@@ -1,0 +1,30 @@
+# Stack complète : API Python + front React (nginx).
+# Local : `docker compose up --build` → front sur http://localhost:8080, API sur :8000
+services:
+  backend:
+    build: ./backend
+    image: ${REGISTRY:-local}/todo-backend:${TAG:-latest}
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    volumes:
+      - todo-data:/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # En prod, pointer vers l'URL publique de l'API.
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:8000}
+    image: ${REGISTRY:-local}/todo-frontend:${TAG:-latest}
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"
+    depends_on:
+      - backend
+
+volumes:
+  todo-data:
