@@ -29,8 +29,7 @@ Rien à faire de ton côté : je lance les contrôles et je t'affiche un tableau
   `winget install jqlang.jq`.
 - VS Code : `code --version` répond ? Si oui et que `code --list-extensions` ne contient pas
   `harington.harry-ai-tutor`, propose (avec son accord) : `bash tools/harry-ai-tutor/install.sh`
-  (Windows PowerShell : `powershell -ExecutionPolicy Bypass -File tools\tools\harry-ai-tutor\install.ps1`
-  — sans le double `tools`). Le script installe aussi l'extension Claude Code si elle manque.
+  (Windows PowerShell : `powershell -ExecutionPolicy Bypass -File tools\harry-ai-tutor\install.ps1`). Le script installe aussi l'extension Claude Code si elle manque.
 - Playwright : au premier usage il télécharge Chromium (~150 Mo) ; derrière un proxy d'entreprise,
   prévenir le formateur.
 **Réparation** : je te propose la commande d'installation adaptée à ton OS (brew / winget ou choco / apt).
