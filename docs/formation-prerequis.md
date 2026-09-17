@@ -44,10 +44,14 @@ Playwright puis Chromium (~150 Mo) : c'est normal. Derrière un proxy d'entrepri
 peut bloquer — signale-le avant la session.
 
 ## 4. Optionnel : l'extension VS Code « Harry AI Tutor »
-Si tu utilises VS Code : installe d'abord l'extension officielle **Claude Code** (Anthropic) depuis le marketplace,
-puis récupère le fichier `harry-ai-tutor-<version>.vsix` partagé par le formateur, et
-VS Code → Extensions (Ctrl+Shift+X) → menu `…` → **Install from VSIX…**. Ouvre ensuite le dossier du
-repo : l'icône Harry apparaît dans la barre de gauche (carte du parcours, étape courante, bilan).
+Si tu utilises VS Code, **une commande** depuis le dossier du repo installe l'extension officielle
+**Claude Code** (Anthropic) puis Harry (le `.vsix` est dans le repo) :
+```
+bash tools/harry-ai-tutor/install.sh                                     # macOS, Linux, Windows (Git Bash)
+powershell -ExecutionPolicy Bypass -File tools\harry-ai-tutor\install.ps1   # Windows (PowerShell)
+```
+Ouvre ensuite le dossier du repo dans VS Code : l'icône Harry apparaît dans la barre de gauche (carte du
+parcours, étape courante, bilan). Au premier lancement de Claude Code, connecte-toi avec ton compte.
 
 ## 5. Le jour J
 Dans le dossier du repo : `claude`, puis `/formation`. Le tuteur te demande ton prénom et ton profil

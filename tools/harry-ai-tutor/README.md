@@ -20,11 +20,19 @@ Le tuteur reste dans Claude Code (le cerveau) ; l'extension est un **viewer + t�
 
 ## Installation (stagiaires)
 
-1. Installer l'extension officielle **Claude Code** (Anthropic) depuis le marketplace et s'y connecter.
-2. Récupérer `harry-ai-tutor-<version>.vsix` (≈ 250 Ko, partagé par le formateur).
-3. VS Code → Extensions (Ctrl+Shift+X) → menu `…` → **Install from VSIX…** → choisir le fichier.
-4. Ouvrir le dossier du repo `harry-claude-training-sample` : l'icône **Harry** apparaît dans la barre d'activité.
-5. Cliquer **Démarrer la formation** : Harry ouvre Claude Code avec `/formation` prêt → **Entrée**.
+Le `.vsix` est versionné dans ce dossier. Depuis la racine du repo cloné, **une commande** installe
+l'extension Claude Code (si absente) puis Harry :
+
+```bash
+bash tools/harry-ai-tutor/install.sh                                   # macOS, Linux, Windows (Git Bash)
+powershell -ExecutionPolicy Bypass -File tools\harry-ai-tutor\install.ps1   # Windows (PowerShell)
+```
+
+Puis ouvrir le dossier du repo dans VS Code : l'icône **Harry** apparaît dans la barre d'activité ;
+**Démarrer la formation** ouvre Claude Code avec `/formation` prêt → **Entrée**. Se connecter à Claude Code
+au premier lancement (compte Pro, Max, Team ou Enterprise).
+
+À la main si besoin : Extensions (Ctrl+Shift+X) → menu `…` → **Install from VSIX…** → `harry-ai-tutor-<version>.vsix`.
 
 Prérequis : ceux de la formation (`docs/formation-prerequis.md`).
 
