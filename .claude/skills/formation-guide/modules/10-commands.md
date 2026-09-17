@@ -36,7 +36,8 @@ invariants (le même que le PRD, ou un second : dis-moi lequel, je le note).
 à chaque étape, commit par étape sur ta branche. **Reste dans la boucle** : lis chaque diff avant
 d'accepter. Si un test casse, laisse-le corriger et vérifie qu'il relance les tests.
 **Vérification** : je vérifie que `git log --oneline main..HEAD` montre ≥ 1 commit en Conventional Commits, et que les
-tests passent : `docker run --rm -v "$PWD/backend:/app" -w /app local/todo-backend pytest -q`.
+tests passent : `docker run --rm -v "$PWD/backend:/app" -w /app local/todo-backend pytest -q`
+(Windows / Git Bash : `MSYS_NO_PATHCONV=1` devant la commande).
 
 ## Pas 4/4 — Recetter (/test) — dev / techlead
 **Exercice** : rebuild (`docker compose up --build -d`) puis `/test TODO-2`. Claude relance tests et

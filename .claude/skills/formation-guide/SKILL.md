@@ -98,6 +98,7 @@ le résultat, et si tout est OK valide le pas et présente **le pas suivant dans
   Chemins avec `/`. Pas de `/tmp`, `sudo`, `xdg-open`, `open`, `apt` non demandé.
 - Tests back **via Docker**, jamais via un Python local :
   `docker run --rm -v "$PWD/backend:/app" -w /app local/todo-backend pytest -q`
+  **Windows / Git Bash** : préfixer par `MSYS_NO_PATHCONV=1` (sinon Git Bash réécrit `/app` en chemin Windows).
 - Santé de l'app : `docker compose ps` (les 2 services `healthy`). Pas de `curl` : il est refusé par
   `settings.json` (c'est voulu, cf. module 06).
 - **Faux positif du hook secrets** : ne mets jamais `echo` / `printf` et `$PWD` dans la **même**

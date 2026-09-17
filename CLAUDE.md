@@ -59,5 +59,6 @@ Les conventions de code sont dans les **skills** (chargées à la demande, appli
 ```bash
 docker compose up --build      # front http://localhost:8080 · API http://localhost:8000/docs
 # Tests back : docker run --rm -v "$PWD/backend:/app" -w /app local/todo-backend pytest -q
+#   (Windows / Git Bash : MSYS_NO_PATHCONV=1 docker run …)
 ```
 Détail (ports, rollback, modes) : [docs/ci-cd.md](docs/ci-cd.md).

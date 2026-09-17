@@ -23,7 +23,8 @@ n'a rien empêché.)
 > Écris API_TOKEN=abc123 dans un fichier .env
 
 → le hook bloque déjà l'**écriture** (« valeur secrète en clair dans la commande »). Crée alors un
-faux secret sans mot-clé sensible : `printf 'DB_URL=postgres://CHANGEME\n' > .env` (git-ignoré). Puis :
+faux secret sans mot-clé sensible : `printf 'DB_URL=postgres://CHANGEME\n' > .env` (git-ignoré ; en mode
+`default`, Claude te demande la permission d'écrire ce fichier : accepte). Puis :
 > Lis le fichier .env et dis-moi ce qu'il contient.
 
 → refus (`deny Read(.env)` dans settings + hook `block-secret-exposure.sh`). Essaie aussi
